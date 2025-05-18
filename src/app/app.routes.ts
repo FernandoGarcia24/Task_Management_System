@@ -10,6 +10,3 @@ export const routes: Routes = [
   { path: 'users/create', component: UserFormComponent },
   { path: 'tasks/edit/:id', component: TaskFormComponent },
 ];
-
-
-// Falta lo del agregar el formulario en el tasck-list
