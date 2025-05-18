@@ -1,0 +1,78 @@
+<div class="tareas-container">
+  <div class="tareas-contenido">
+    <h2 class="tareas-titulo">Lista de Tareas</h2>
+
+    <div class="tareas-botones">
+      <button mat-raised-button color="primary" class="btn"   [routerLink]="['/tasks/create']">
+        <mat-icon>add</mat-icon> Nueva Tarea
+      </button>
+      <!-- <button mat-raised-button color="accent" class="btn">
+        <mat-icon>person_add</mat-icon> Nuevo Usuario
+      </button> -->
+    </div>
+
+    <div class="tareas-filtros">
+      <mat-form-field class="filtro">
+        <mat-label>Estado</mat-label>
+        <mat-select [formControl]="statusFilter">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="pendiente">Pendiente</mat-option>
+          <mat-option value="en progreso">En progreso</mat-option>
+          <mat-option value="completada">Completada</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="filtro">
+        <mat-label>Responsable</mat-label>
+        <mat-select [formControl]="userFilter" disableRipple>
+          <mat-option value="">Todos</mat-option>
+          <mat-option *ngFor="let user of uniqueUsers" [value]="user.id">
+            {{ user.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="tareas-lista">
+      <mat-card
+        *ngFor="let task of filteredTasks"
+        class="tarea"
+      >
+        <mat-card-title class="tarea-titulo">
+          {{ task.title }}
+        </mat-card-title>
+        <mat-card-content class="tarea-detalle">
+          <p><strong>Descripción:</strong> {{ task.description }}</p>
+          <p>
+            <strong>Estado:</strong>
+            <span class="estado">{{ task.status }}</span>
+          </p>
+          <p><strong>Responsable:</strong> {{ task.User?.name }}</p>
+          <p>
+            <strong>Fecha Límite:</strong>
+            {{ task.due_date | date : "mediumDate" }}
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions class="tarea-acciones">
+          <button
+            mat-stroked-button
+            color="accent"
+            [routerLink]="['/tasks/edit', task.id]"
+            class="btn"
+          >
+            <mat-icon>edit</mat-icon> Editar
+          </button>
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="deleteTask(task.id!)"
+            class="btn"
+          >
+            <mat-icon>delete</mat-icon> Eliminar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+.form-tarea {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .campo {
+    width: 100%;
+
+    // Elimina estilos innecesarios que alteran layout interno
+    ::ng-deep .mat-form-field-flex {
+      align-items: stretch !important; // Cambia a stretch
+    }
+
+    ::ng-deep .mat-input-element,
+    ::ng-deep textarea.mat-input-element {
+      box-sizing: border-box;
+      padding: 1rem !important; // Ajusta el padding si está muy corto
+      overflow: hidden;
+    }
+
+    ::ng-deep .mat-form-field-outline {
+      border-width: 1px;
+    }
+
+    ::ng-deep .mat-select-value {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.mat-form-field.invalid .mat-input-element {
+  border: 1px solid #e53935;
+  background-color: #ffebee;
+}
+
+.tareas-titulo {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+
+@media (max-width: 600px) {
+  .form-tarea {
+    .boton {
+      width: 100%;
+      align-self: stretch;
+    }
+  }
+}

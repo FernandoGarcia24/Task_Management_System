@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline" class="w-full">
+  <mat-label>Responsable</mat-label>
+  <mat-select [formControlName]="formControlName">
+    <mat-option *ngFor="let user of users" [value]="user.id">
+      {{ user.name }} ({{ user.email }})
+    </mat-option>
+  </mat-select>
+</mat-form-field>

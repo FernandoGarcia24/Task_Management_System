@@ -1,0 +1,56 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-tarea">
+  <h2 class="tareas-titulo">{{ taskId ? 'Editar tarea' : 'Crear nueva tarea' }}</h2>
+  <mat-form-field class="campo">
+    <mat-label>Título</mat-label>
+    <input matInput formControlName="title" />
+    <mat-error *ngIf="form.get('title')?.hasError('required')">
+      El título es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="campo">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="campo">
+    <mat-label>Estado</mat-label>
+    <mat-select formControlName="status">
+      <mat-option value="pendiente">Pendiente</mat-option>
+      <mat-option value="en progreso">En progreso</mat-option>
+      <mat-option value="completada">Completada</mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('status')?.hasError('required')">
+      El estado es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="campo">
+    <mat-label>Fecha límite</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="due_date" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="form.get('due_date')?.hasError('required')">
+      La fecha límite es obligatoria
+    </mat-error>
+    <mat-error *ngIf="form.get('due_date')?.hasError('pastDate')">
+      La fecha debe ser mayor a hoy
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="campo">
+    <mat-label>Responsable</mat-label>
+    <mat-select formControlName="user_id">
+      <mat-option *ngFor="let user of users" [value]="user.id">
+        {{ user.name }} ({{ user.email }})
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('user_id')?.hasError('required')">
+      Selecciona un responsable
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" class="boton">
+    Guardar Tarea
+  </button>
+</form>
